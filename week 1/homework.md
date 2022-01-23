@@ -9,9 +9,10 @@ Install Google Cloud SDK. What's the version you have?
 
 To get the version, run `gcloud --version`
 
-## Google Cloud account 
-
-Create an account in Google Cloud and create a project.
+Google Cloud SDK 369.0.0
+bq 2.0.72
+core 2022.01.14
+gsutil 5.6
 
 
 ## Question 2. Terraform 
@@ -37,6 +38,13 @@ wget https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2021-01.csv
 ```
 
 Download this data and put it to Postgres
+
+google_bigquery_dataset.dataset: Creating...
+google_storage_bucket.data-lake-bucket: Creating...
+google_storage_bucket.data-lake-bucket: Creation complete after 3s [id=dtc_data_lake_calm-brook-338805]
+google_bigquery_dataset.dataset: Creation complete after 3s [id=projects/calm-brook-338805/datasets/trips_data_all]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 
 ## Question 3. Count records 
 
