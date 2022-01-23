@@ -95,10 +95,66 @@ in central park on January 14?
 
 Enter the district name (not id)
 
+```
+SELECT 
+	dp."Zone", COUNT(1) num_dropoff
+FROM (
+	SELECT
+		t."DOLocationID", z."Zone"
+	FROM
+		yellow_taxi_trips t JOIN zones z
+		ON t."DOLocationID" = z."LocationID"
+		JOIN zones zpu
+		ON t."PULocationID" = zpu."LocationID"
+		WHERE zpu."Zone" = 'Central Park' AND
+		CAST(tpep_pickup_datetime AS date)='2021-01-14'
+	) AS dp
+GROUP BY dp."Zone"
+ORDER BY num_dropoff DESC
+LIMIT 1;
+```
+```
+Upper East Side South
+```
+
 ## Question 6. 
 
 What's the pickup-dropoff pair with the largest 
 average price for a ride (calculated based on `total_amount`)?
+
+```
+SELECT
+	p_d."pickup_dropoff", AVG(p_d."total_amount") avg_amount
+FROM (
+	SELECT
+		concat(
+			CASE
+				WHEN zpu."Zone" IS null THEN 'Unknown'
+				ELSE zpu."Zone" 
+			END, 
+			' / ', 
+			CASE
+				WHEN zdo."Zone" IS null THEN 'Unknown'
+				ELSE zdo."Zone"
+			END ) pickup_dropoff,
+		t."total_amount"
+	FROM
+		yellow_taxi_trips t
+		JOIN
+		zones zpu
+		ON t."PULocationID" = zpu."LocationID"
+		JOIN
+		zones zdo
+		ON t."DOLocationID" = zdo."LocationID"
+	) AS p_d
+GROUP BY p_d."pickup_dropoff"
+ORDER BY avg_amount DESC
+LIMIT 1;
+```
+
+```
+Alphabet City / Unknown
+```
 
 
 ## Submitting the solutions
