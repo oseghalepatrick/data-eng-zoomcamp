@@ -39,10 +39,12 @@ wget https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2021-01.csv
 
 Download this data and put it to Postgres
 
+```
 google_bigquery_dataset.dataset: Creating...
 google_storage_bucket.data-lake-bucket: Creating...
 google_storage_bucket.data-lake-bucket: Creation complete after 3s [id=dtc_data_lake_calm-brook-338805]
 google_bigquery_dataset.dataset: Creation complete after 3s [id=projects/calm-brook-338805/datasets/trips_data_all]
+```
 
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 
@@ -50,12 +52,41 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 
 How many taxi trips were there on January 15?
 
+```
+SELECT 
+	COUNT(CAST(tpep_pickup_datetime as date))
+FROM
+	yellow_taxi_trips
+WHERE 
+	CAST(tpep_pickup_datetime as date) = '2021-01-15';
+```
+
+```
+53024
+```
+
 ## Question 4. Average
 
 Find the largest tip for each day. 
 On which day it was the largest tip in January?
 
 (note: it's not a typo, it's "tip", not "trip")
+
+```
+SELECT 
+	CAST(tpep_pickup_datetime as date) as "Date",
+	MAX(tip_amount) as max_tip
+FROM
+	yellow_taxi_trips
+GROUP BY
+	"Date"
+ORDER BY
+	max_tip DESC
+LIMIT 1;
+```
+```
+2021-01-20
+```
 
 ## Question 5. Most popular destination
 
