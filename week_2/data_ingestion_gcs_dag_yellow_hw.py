@@ -21,7 +21,7 @@ BUCKET = os.environ.get("GCP_GCS_BUCKET")
 # BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'trips_data_all')
 
 
-dataset_file = 'yellow_taxi_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
+dataset_file = 'yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
 URL_PREFIX = 'https://s3.amazonaws.com/nyc-tlc/trip+data' 
 dataset_url = URL_PREFIX + '/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
 path_to_local_home = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
