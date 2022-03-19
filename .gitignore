@@ -133,3 +133,5 @@ de-project-344223-ff6b93008607.json
 *.tfstate.*
 **.terraform
 **.terraform.lock.*
+google_credentials.json
+project/data_ingestion/logs
