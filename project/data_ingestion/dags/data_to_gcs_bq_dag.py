@@ -1,4 +1,4 @@
-import os
+import os, glob
 import logging
 
 from airflow import DAG
@@ -34,6 +34,146 @@ def read_data(file_name, dest_file, schema=None):
     df = spark.read \
             .option('header', 'true') \
             .csv('file://'+pyspark.SparkFiles.get(file_name+'.tsv.gz'), sep='\t', schema=schema)
-    df.repartition(7)\
-        .write.parquet(dest_file, mode='overwrite')
+    df.write.parquet(dest_file, mode='overwrite')
 
+def upload_to_gcs(bucket, file_name):
+    local_file=glob.glob(f'{file_name}/*.parquet')[0]
+    base_pth=os.path.basename(local_file)
+    object_name=f"raw/{file_name}/{base_pth}"
+    client = storage.Client()
+    bucket = client.bucket(bucket)
+    blob = bucket.blob(object_name)
+    blob.upload_from_filename(local_file)
+
+
+default_args = {
+    "owner": "airflow",
+    #"start_date": days_ago(1),
+    "depends_on_past": False,
+    "retries": 1,
+}
+
+def donwload_parquetize_upload_dag(
+    dag,
+    file_name,
+    local_parquet_path_template,
+    schema,
+    gcs_path_template
+):
+    with dag:
+
+        format_to_parquet_task = PythonOperator(
+            task_id=f"format_{file_name}_to_parquet",
+            python_callable=read_data,
+            op_kwargs={
+                "file_name": file_name,
+                "dest_file": local_parquet_path_template,
+                "schema":schema
+            },
+        )
+
+        local_to_gcs_task = PythonOperator(
+            task_id=f"local_{file_name}_to_gcs_task",
+            python_callable=upload_to_gcs,
+            op_kwargs={
+                "bucket": BUCKET,
+                "file_name":file_name
+            },
+        )
+
+        rm_task = BashOperator(
+            task_id=f"rm_{file_name}_task",
+            bash_command=f"rm -rf {local_parquet_path_template}"
+        )
+
+        format_to_parquet_task >> local_to_gcs_task >> rm_task
+
+
+name_basics_schema = types.StructType([
+    types.StructField('nconst',types.StringType(),True),
+    types.StructField('primaryName',types.StringType(),True),
+    types.StructField('birthYear',types.IntegerType(),True),
+    types.StructField('deathYear',types.IntegerType(),True),
+    types.StructField('primaryProfession',types.StringType(),True),
+    types.StructField('knownForTitles',types.StringType(),True)
+])
+
+title_akas_schema = types.StructType([
+    types.StructField('titleId',types.StringType(),True),
+    types.StructField('ordering',types.IntegerType(),True),
+    types.StructField('title',types.StringType(),True),
+    types.StructField('region',types.StringType(),True),
+    types.StructField('language',types.StringType(),True),
+    types.StructField('types',types.StringType(),True),
+    types.StructField('attributes',types.StringType(),True),
+    types.StructField('isOriginalTitle',types.IntegerType(),True)
+])
+
+title_basics_schema = types.StructType([
+    types.StructField('tconst',types.StringType(),True),
+    types.StructField('titleType',types.StringType(),True),
+    types.StructField('primaryTitle',types.StringType(),True),
+    types.StructField('originalTitle',types.StringType(),True),
+    types.StructField('isAdult',types.IntegerType(),True),
+    types.StructField('startYear',types.IntegerType(),True),
+    types.StructField('endYear',types.IntegerType(),True),
+    types.StructField('runtimeMinutes',types.IntegerType(),True),
+    types.StructField('genres',types.StringType(),True)
+])
+
+title_crew_schema = types.StructType([
+    types.StructField('tconst',types.StringType(),True),
+    types.StructField('directors',types.StringType(),True),
+    types.StructField('writers',types.StringType(),True)
+])
+
+title_episode_schema = types.StructType([
+    types.StructField('tconst',types.StringType(),True),
+    types.StructField('parentTconst',types.StringType(),True),
+    types.StructField('seasonNumber',types.IntegerType(),True),
+    types.StructField('episodeNumber',types.IntegerType(),True)
+])
+
+title_principals_schema = types.StructType([
+    types.StructField('tconst',types.StringType(),True),
+    types.StructField('ordering',types.IntegerType(),True),
+    types.StructField('nconst',types.StringType(),True),
+    types.StructField('category',types.StringType(),True),
+    types.StructField('job',types.StringType(),True),
+    types.StructField('characters',types.StringType(),True)
+])
+
+title_rating_schema = types.StructType([
+    types.StructField('tconst',types.StringType(),True),
+    types.StructField('averageRating',types.DoubleType(),True),
+    types.StructField('numVotes',types.IntegerType(),True)
+])
+
+movies_details = {
+    "name.basics": name_basics_schema,
+    "title.akas": title_akas_schema,
+    "title.basics": title_basics_schema,
+    "title.crew": title_crew_schema,
+    "title.episode": title_episode_schema,
+    "title.principals": title_principals_schema,
+    "title.ratings": title_rating_schema
+}
+
+for name_url, name_schema in movies_details.items():
+    data_to_gcs_dag = DAG(
+        dag_id=f"{name_url}_data_2_gcs_dag",
+        schedule_interval="@daily",
+        start_date=days_ago(1),
+        default_args=default_args,
+        catchup=True,
+        max_active_runs=3,
+        tags=['de-project'],
+    )
+        
+    donwload_parquetize_upload_dag(
+        dag=data_to_gcs_dag,
+        file_name=name_url,
+        local_parquet_path_template=name_url,
+        schema=name_schema,
+        gcs_path_template=name_url
+    )
