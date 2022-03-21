@@ -135,3 +135,4 @@ de-project-344223-ff6b93008607.json
 **.terraform.lock.*
 google_credentials.json
 project/data_ingestion/logs
+*/data_ingestion/schema.py
