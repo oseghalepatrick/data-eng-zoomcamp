@@ -149,31 +149,145 @@ title_rating_schema = types.StructType([
     types.StructField('numVotes',types.IntegerType(),True)
 ])
 
-movies_details = {
-    "name.basics": name_basics_schema,
-    "title.akas": title_akas_schema,
-    "title.basics": title_basics_schema,
-    "title.crew": title_crew_schema,
-    "title.episode": title_episode_schema,
-    "title.principals": title_principals_schema,
-    "title.ratings": title_rating_schema
-}
+# movies_details = {
+#     "name.basics": name_basics_schema,
+#     "title.akas": title_akas_schema,
+#     "title.basics": title_basics_schema,
+#     "title.crew": title_crew_schema,
+#     "title.episode": title_episode_schema,
+#     "title.principals": title_principals_schema,
+#     "title.ratings": title_rating_schema
+# }
 
-for name_url, name_schema in movies_details.items():
-    data_to_gcs_dag = DAG(
-        dag_id=f"{name_url}_data_2_gcs_dag",
-        schedule_interval="@daily",
-        start_date=days_ago(1),
-        default_args=default_args,
-        catchup=True,
-        max_active_runs=3,
-        tags=['de-project'],
-    )
-        
-    donwload_parquetize_upload_dag(
-        dag=data_to_gcs_dag,
-        file_name=name_url,
-        local_parquet_path_template=name_url,
-        schema=name_schema,
-        gcs_path_template=name_url
-    )
+name_basics = "name.basics"
+name_basics_to_gcs_dag = DAG(
+    dag_id=f"{name_basics}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=name_basics_to_gcs_dag,
+    file_name=name_basics,
+    local_parquet_path_template=name_basics,
+    schema=name_basics_schema,
+    gcs_path_template=name_basics
+)
+
+title_akas = "title.akas"
+title_akas_to_gcs_dag = DAG(
+    dag_id=f"{title_akas}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_akas_to_gcs_dag,
+    file_name=title_akas,
+    local_parquet_path_template=title_akas,
+    schema=title_akas_schema,
+    gcs_path_template=title_akas
+)
+
+title_basics = "title.basics"
+title_basics_gcs_dag = DAG(
+    dag_id=f"{title_basics}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_basics_gcs_dag,
+    file_name=title_basics,
+    local_parquet_path_template=title_basics,
+    schema=title_basics_schema,
+    gcs_path_template=title_basics
+)
+
+title_crew = "title.crew"
+title_crew_to_gcs_dag = DAG(
+    dag_id=f"{title_crew}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_crew_to_gcs_dag,
+    file_name=title_crew,
+    local_parquet_path_template=title_crew,
+    schema=title_crew_schema,
+    gcs_path_template=title_crew
+)
+
+title_episode = "title.episode"
+title_episode_to_gcs_dag = DAG(
+    dag_id=f"{title_episode}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_episode_to_gcs_dag,
+    file_name=title_episode,
+    local_parquet_path_template=title_episode,
+    schema=title_episode_schema,
+    gcs_path_template=title_episode
+)
+
+title_principals = "title.principals"
+title_principals_to_gcs_dag = DAG(
+    dag_id=f"{title_principals}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_principals_to_gcs_dag,
+    file_name=title_principals,
+    local_parquet_path_template=title_principals,
+    schema=title_principals_schema,
+    gcs_path_template=title_principals
+)
+
+title_ratings = "title.ratings"
+title_ratings_to_gcs_dag = DAG(
+    dag_id=f"{title_ratings}_data_2_gcs_dag",
+    schedule_interval="@daily",
+    start_date=days_ago(1),
+    default_args=default_args,
+    catchup=True,
+    max_active_runs=3,
+    tags=['de-project'],
+)
+    
+donwload_parquetize_upload_dag(
+    dag=title_ratings_to_gcs_dag,
+    file_name=title_ratings,
+    local_parquet_path_template=title_ratings,
+    schema=title_rating_schema,
+    gcs_path_template=title_ratings
+)
