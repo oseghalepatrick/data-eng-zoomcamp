@@ -15,5 +15,5 @@ END
   AS rating_level
 FROM
   {{ source('staging','title_ratings_data') }}
-LIMIT
-  1000
+-- LIMIT
+--   1000
