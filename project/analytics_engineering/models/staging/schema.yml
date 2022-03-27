@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+    - name: staging
+      database: de-project-344223
+      schema: all_movies_data
+
+      tables:
+        - name: name_basics_data
+        - name: title_basics_data
+        - name: title_principals_data
+        - name: title_episode_data
+        - name: title_ratings_data
