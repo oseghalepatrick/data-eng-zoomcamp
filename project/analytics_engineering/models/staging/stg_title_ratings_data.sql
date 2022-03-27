@@ -1,7 +1,9 @@
 {{ config(materialized='view') }}
 
 SELECT
-  *,
+  tconst,
+  cast(averageRating as numeric) as average_rating,
+  cast(numVotes as integer) as number_of_votes,
   CASE
     WHEN averageRating >= 8 THEN 5
     WHEN averageRating >= 6 THEN 4
