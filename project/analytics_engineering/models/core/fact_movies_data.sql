@@ -22,7 +22,8 @@ select
     genres,
     average_rating,
     number_of_votes,
-    rating_level 
+    rating_level,
+    link
 from title_basics
 inner join title_ratings
 on title_basics.tconst = title_ratings.tconst

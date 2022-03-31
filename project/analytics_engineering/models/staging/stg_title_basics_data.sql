@@ -9,9 +9,10 @@ SELECT
   cast(startYear as integer) as start_year,
   cast(endYear as integer) as end_year,
   cast(runtimeMinutes as integer) as runtime_minutes,
-  genres
+  genres,
+  concat("https://www.imdb.com/title/", tconst) as link
 FROM
     {{ source('staging','title_basics_data') }}
 WHERE
   titleType IN ('movie', 'tvSeries')
--- LIMIT 100000
+-- LIMIT 100

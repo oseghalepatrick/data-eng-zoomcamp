@@ -2,21 +2,22 @@
 
 with title_basics as (
     select * 
-    from {{ ref('stg_title_basics_data') }}
+    from {{ ref('fact_movies_data') }}
 ),
 
-title_ratings as (
-    select *
-    from {{ ref('stg_title_ratings_data')}}
+title_gen as (
+    select 
+        b.tconst,
+        genre
+    from {{ ref('stg_title_basics_data') }} as b
+    join UNNEST(SPLIT(b.genres)) as genre
 )
-
 select
     title_basics.tconst,
-    title_genres,
+    title_basics.genres as genres,
+    title_gen.genre as genres_name,
     count(1) as numb
 from title_basics
-join unnest(split(title_basics.genres)) as title_genres
-inner join title_ratings
-on title_basics.tconst = title_ratings.tconst
-where title_genres != '\\N'
-group by 1, 2
+inner join title_gen
+on title_basics.tconst = title_gen.tconst
+group by 1, 2, 3
