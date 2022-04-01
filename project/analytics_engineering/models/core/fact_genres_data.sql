@@ -9,7 +9,7 @@ title_gen as (
     select 
         b.tconst,
         genre
-    from {{ ref('stg_title_basics_data') }} as b
+    from {{ ref('fact_movies_data') }} as b
     join UNNEST(SPLIT(b.genres)) as genre
 )
 select
