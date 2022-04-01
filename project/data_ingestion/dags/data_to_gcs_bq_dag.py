@@ -37,7 +37,9 @@ def read_data(file_name, dest_file, schema=None):
     df.write.parquet(dest_file, mode='overwrite')
 
 def upload_to_gcs(bucket, file_name):
+    print(file_name)
     local_file=glob.glob(f'{file_name}/*.parquet')[0]
+    print(local_file)
     base_pth=os.path.basename(local_file)
     object_name=f"raw/{file_name}/{base_pth}"
     client = storage.Client()
