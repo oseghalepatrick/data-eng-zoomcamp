@@ -1,11 +1,9 @@
 {{ config(materialized='view') }}
 WITH title_basics as
 (
-  SELECT *, row_number() over(order by tconst) as rn
+  SELECT *, row_number() over(partition by tconst) as rn
   FROM
     {{ source('staging','title_basics_data') }}
-  WHERE
-  titleType IN ('movie', 'tvSeries')
 )
 SELECT
   tconst,
@@ -21,5 +19,5 @@ SELECT
 FROM
     title_basics
 WHERE
-  rn=1
--- LIMIT 100
+  titleType IN ('movie', 'tvSeries') and rn=1
+-- LIMIT 1000
