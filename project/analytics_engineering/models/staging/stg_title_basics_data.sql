@@ -20,4 +20,5 @@ FROM
     title_basics
 WHERE
   titleType IN ('movie', 'tvSeries') and rn=1
+-- order by tconst
 -- LIMIT 1000

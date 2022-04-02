@@ -27,3 +27,4 @@ select
 from title_basics
 inner join title_ratings
 on title_basics.tconst = title_ratings.tconst
+-- order by rating_level desc, number_of_votes desc

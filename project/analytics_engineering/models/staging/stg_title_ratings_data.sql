@@ -16,5 +16,6 @@ SELECT
 FROM
   ratings_data
 WHERE rn=1
+-- order by number_of_votes DESC
 -- LIMIT
 --   1000
