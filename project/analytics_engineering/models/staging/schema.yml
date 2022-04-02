@@ -56,6 +56,9 @@ models:
     columns:
       - name: tconst
         description: alphanumeric unique identifier of the title
+        tests:
+            - not_null:
+                severity: warn
 
       - name: title_type
         description: the type/format of the title (e.g. movie, tvseries)
