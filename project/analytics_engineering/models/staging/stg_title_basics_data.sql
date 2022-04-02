@@ -1,5 +1,10 @@
 {{ config(materialized='view') }}
-
+WITH title_basics as
+(
+  SELECT *, row_number() over(partition by tconst) as rn
+  FROM
+    {{ source('staging','title_basics_data') }}
+)
 SELECT
   tconst,
   titleType as title_type,
@@ -12,7 +17,7 @@ SELECT
   genres,
   concat("https://www.imdb.com/title/", tconst) as link
 FROM
-    {{ source('staging','title_basics_data') }}
+    title_basics
 WHERE
-  titleType IN ('movie', 'tvSeries')
--- LIMIT 100
+  titleType IN ('movie', 'tvSeries') and rn=1
+-- LIMIT 1000
