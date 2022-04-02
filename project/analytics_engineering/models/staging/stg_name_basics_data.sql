@@ -1,17 +1,28 @@
 {{ config(materialized='view') }}
 
+WITH name_basics AS
+(
+  SELECT *,
+    row_number() over(partition by nconst order by nconst) as rn
+  FROM
+    {{ source('staging','name_basics_data') }}
+  WHERE
+  primaryProfession LIKE '%act%'
+)
 SELECT
   nconst,
-  primaryName as act_name,
-  cast(birthYear as integer) as birth_year,
-  cast(deathYear as integer) as death_year,
-  primaryProfession as primary_profession,
-  knownForTitles as known_for_titles --EXCEPT(profession)
+  primaryName AS act_name,
+  CAST(birthYear AS integer) AS birth_year,
+  CAST(deathYear AS integer) AS death_year,
+  primaryProfession AS primary_profession,
+  knownForTitles AS known_for_titles --EXCEPT(profession)
 FROM
-  {{ source('staging','name_basics_data') }} AS star_names
-JOIN
-  UNNEST(SPLIT(star_names.primaryProfession)) AS profession
+  name_basics AS star_names
+-- JOIN
+--   UNNEST(SPLIT(star_names.primaryProfession)) AS profession
 WHERE
-  profession LIKE 'act%'
+  rn=1
+ORDER BY
+  nconst
 -- LIMIT
 --   100000
