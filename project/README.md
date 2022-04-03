@@ -10,7 +10,12 @@ For this solution to be possible, the data engineer and analytic will need to cr
 Although the data is updated daily on the IMDB database, the pipeline will be set to refresh weekly and henceforth updating the dashboard.
 
 ## Dataset
+<<<<<<< HEAD:project/README.md
 The data is a subset of IMDB dataset which is available for access on the [IMDB Datasets](https://datasets.imdbws.com/) which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
+=======
+The data is a subset of IMDB dataset which is available for access on the <a href="https://datasets.imdbws.com/" target="_blank">IMDB Datasets</a> which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
+
+>>>>>>> 616cc2eacb5ed74ba82f06499bd700b5e2bea921:project/proposal.md
 
 ## Data Pipeline
 
