@@ -10,12 +10,7 @@ For this solution to be possible, the data engineer and analytic will need to cr
 Although the data is updated daily on the IMDB database, the pipeline will be set to refresh weekly and henceforth updating the dashboard.
 
 ## Dataset
-<<<<<<< HEAD:project/README.md
 The data is a subset of IMDB dataset which is available for access on the [IMDB Datasets](https://datasets.imdbws.com/) which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
-=======
-The data is a subset of IMDB dataset which is available for access on the <a href="https://datasets.imdbws.com/" target="_blank">IMDB Datasets</a> which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
-
->>>>>>> 616cc2eacb5ed74ba82f06499bd700b5e2bea921:project/proposal.md
 
 ## Data Pipeline
 
@@ -42,14 +37,13 @@ The necessary configurations were made to ensure the successful execution and al
 
 **Execution steps**
 `terraform init`:
-* Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
+    * Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
 `terraform plan`:
-* Matches/previews local changes against a remote state, and proposes an Execution Plan.
+    * Matches/previews local changes against a remote state, and proposes an Execution Plan.
 `terraform apply`:
-* Asks for approval to the proposed plan, and applies changes to cloud.
+    * Asks for approval to the proposed plan, and applies changes to cloud.
 
 ### Workflow orchestration: Airflow
-
 
 
 ## Dashboard
