@@ -36,11 +36,15 @@ Terraform is an open source tool which has been used for provisioning infrastruc
 The necessary configurations were made to ensure the successful execution and also set the resources as `google_storage_bucket, google_bigquery_dataset, google_bigquery_table` thereby creating the bucket from the project and also creating the BigQuery dataset and the bigquery tables for all movie data and the transform data from DBT.
 
 **Execution steps**
+
 `terraform init`:
-    * Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
+
+* Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
 `terraform plan`:
-    * Matches/previews local changes against a remote state, and proposes an Execution Plan.
+
+* Matches/previews local changes against a remote state, and proposes an Execution Plan.
 `terraform apply`:
+
     * Asks for approval to the proposed plan, and applies changes to cloud.
 
 ### Workflow orchestration: Airflow
