@@ -35,19 +35,20 @@ Terraform is an open source tool which has been used for provisioning infrastruc
 
 The necessary configurations were made to ensure the successful execution and also set the resources as `google_storage_bucket, google_bigquery_dataset, google_bigquery_table` thereby creating the bucket from the project and also creating the BigQuery dataset and the bigquery tables for all movie data and the transform data from DBT.
 
-**Execution steps**
-
-`terraform init`:
-
-* Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
-`terraform plan`:
-
-* Matches/previews local changes against a remote state, and proposes an Execution Plan.
-`terraform apply`:
-
+#### Execution steps
+1. `terraform init`:
+    * Initializes & configures the backend, installs plugins/providers, & checks out an existing configuration from a version control
+2. `terraform plan`:
+    * Matches/previews local changes against a remote state, and proposes an Execution Plan.
+3. `terraform apply`:
     * Asks for approval to the proposed plan, and applies changes to cloud.
 
 ### Workflow orchestration: Airflow
 
 
+### Transformation (dbt)
+
+
 ## Dashboard
+The [dashboard](https://datastudio.google.com/s/kJWMinVHqMw) was built on Google Data Studio. Connecting the BigQuery data warehouse to Google Data Studio was very easy. 
+<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/fd2af7f8-2ab4-40a4-8445-9365e812fbeb/page/dX3oC" frameborder="0" style="border:0" allowfullscreen></iframe>
