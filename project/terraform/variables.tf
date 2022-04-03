@@ -24,7 +24,7 @@ variable "BQ_DATASET" {
 }
 
 variable "BQ_DATASET_DEPLOY" {
-  description = "BigQuery Dataset that raw data (from GCS) will be written to"
+  description = "BigQuery Dataset that the transformed data (from BigQuery) will be written to"
   type = string
   default = "deploy_movies_data"
 }
