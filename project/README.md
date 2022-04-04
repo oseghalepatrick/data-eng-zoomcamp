@@ -53,6 +53,8 @@ Apache Airflow is a platform to programmatically schedule and mointor workflows 
 Transformation was done using [dbt](https://www.getdbt.com/).
 The documentation of the data can be find [here](./analytics_engineering/models/staging/schema.yml) to understand the data and what the represent.
 
+The `title basics` contains movies not yet release and `title ratings` are only movies and series that  have been released. To get the released movies and series, join the `title basics` and `title ratings`.
+
 
 ### Dashboard
 The [dashboard](https://datastudio.google.com/s/kJWMinVHqMw) was built on Google Data Studio. Connecting the BigQuery data warehouse to Google Data Studio was very easy.
@@ -66,8 +68,10 @@ git clone https://github.com/oseghalepatrick/data-eng-zoomcamp.git
 
 cd data-eng-zoomcamp/project/
 ```
-2. Setup Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp)
+2. Setup Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp)<br>
 Then run the in the following order [here](./terraform/README.md)
 
 3. Setup the Docker and Airflow [here](./data_ingestion/README.md)
+
+4. To setup dbt follow the instruction [here](./analytics_engineering/README.md)
 

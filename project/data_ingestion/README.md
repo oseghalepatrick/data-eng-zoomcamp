@@ -22,4 +22,4 @@ docker-compose up
 docker-compose down
 ```
 
-[Back to home page](./project/README.md?plain=1#L72)
+[Back to home page](./project/README.md)

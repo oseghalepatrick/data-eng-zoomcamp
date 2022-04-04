@@ -1,4 +1,7 @@
-Welcome to your new dbt project!
+Welcome to your dbt project! To start [Sign up here](https://www.getdbt.com/)
+
+
+Follow the setup instruction [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_4_analytics_engineering/dbt_cloud_setup.md)
 
 ### Using the starter project
 
