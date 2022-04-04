@@ -30,4 +30,4 @@ terraform plan -var="project=<your-gcp-project-id>"
 terraform apply -var="project=<your-gcp-project-id>"
 ```
 
-[Back to home page](../README.md)
+[Back to home page](./project/README.md?plain=1#L69)

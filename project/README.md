@@ -66,9 +66,8 @@ git clone https://github.com/oseghalepatrick/data-eng-zoomcamp.git
 
 cd data-eng-zoomcamp/project/
 ```
-2. Implement Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp).
-
+2. Setup Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp)
 Then run the in the following order [here](./terraform/README.md)
 
-3. 
+3. Setup the Docker and Airflow [here](./data_ingestion/README.md)
 
