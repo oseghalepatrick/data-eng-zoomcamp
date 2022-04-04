@@ -63,11 +63,11 @@ The [dashboard](https://datastudio.google.com/s/kJWMinVHqMw) was built on Google
 ### Reproduce the Project
 The steps to reproduce this pipeline is as follows:
 1. Clone the repo
-```
-git clone https://github.com/oseghalepatrick/data-eng-zoomcamp.git
+    ```
+        git clone https://github.com/oseghalepatrick/data-eng-zoomcamp.git
 
-cd data-eng-zoomcamp/project/
-```
+        cd data-eng-zoomcamp/project/
+    ```
 2. Setup Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp)<br>
 Then run the scripts in the following order [here](./terraform/README.md)
 
