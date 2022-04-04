@@ -13,7 +13,7 @@ Although the data is updated daily on the IMDB database, the pipeline will be se
 The data is a subset of IMDB dataset which is available for access on the [IMDB Datasets](https://datasets.imdbws.com/) which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
 
 ## Data Pipeline
-[Data Pipeline architecture](./image/pipeline.png)
+<img src="images/pipeline.png"/>
 
 
 ## Technologies
@@ -45,6 +45,8 @@ The necessary configurations were made to ensure the successful execution and al
     * Asks for approval to the proposed plan, and applies changes to cloud.
 
 ### Workflow orchestration: Airflow
+Apache Airflow is a platform to programmatically schedule and mointor workflows as DAGs. With Airflow, we have command line utilities as well as a user interface to visualise pipelines, monitor progress and troubleshoot issues.
+<img src="images/dag.png"/>
 
 
 ### Transformation (dbt)
@@ -52,3 +54,4 @@ The necessary configurations were made to ensure the successful execution and al
 
 ## Dashboard
 The [dashboard](https://datastudio.google.com/s/kJWMinVHqMw) was built on Google Data Studio. Connecting the BigQuery data warehouse to Google Data Studio was very easy.
+<img src="images/dashboard.png">
