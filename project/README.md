@@ -13,7 +13,7 @@ Although the data is updated daily on the IMDB database, the pipeline will be se
 The data is a subset of IMDB dataset which is available for access on the [IMDB Datasets](https://datasets.imdbws.com/) which is been refreshed daily. Each dataset is contained in a gzipped, tab-separated-values (TSV) formatted file in the UTF-8 character set.
 
 ## Data Pipeline
-![Data Pipeline architecture](/home/oseghalepatrick53/data-eng-zoomcamp/project/image/pipeline.png "Pipeline")
+<img src="/home/oseghalepatrick53/data-eng-zoomcamp/project/image/pipeline.png" alt="Data Pipeline architecture" style="height: 100px; width:100px;"/>
 
 
 ## Technologies
