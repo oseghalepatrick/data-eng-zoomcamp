@@ -69,9 +69,8 @@ git clone https://github.com/oseghalepatrick/data-eng-zoomcamp.git
 cd data-eng-zoomcamp/project/
 ```
 2. Setup Terraform for IaC [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp)<br>
-Then run the in the following order [here](./terraform/README.md)
+Then run the scripts in the following order [here](./terraform/README.md)
 
 3. Setup the Docker and Airflow [here](./data_ingestion/README.md)
 
 4. To setup dbt follow the instruction [here](./analytics_engineering/README.md)
-
